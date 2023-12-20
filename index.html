@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>公主 请上岸！</title>
+    </title>
+    <style>
+        /* 全屏背景渐变效果 */
+        body {
+            background: linear-gradient(to bottom, #000000, #333333);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* 倒计时时钟样式 */
+        #countdown-label {
+            font-size: 24px;
+        }
+
+        #countdown {
+            font-size: 48px;
+        }
+
+        /* 祝福语句动画效果 */
+        #message {
+            color: red;
+            font-size: 30px;
+            opacity: 0;
+            animation: fade-in 2s forwards;
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* 输入框和按钮样式 */
+        #input-box {
+            margin-top: 20px;
+        }
+
+        #calculate-btn {
+            margin-top: 10px;
+            padding: 5px 10px;
+        }
+
+        /* 下雪背景效果 */
+        #snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .snowflake {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            opacity: 0.8;
+            pointer-events: none;
+            animation: snowfall linear infinite;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 距离高考还剩 -->
+    <div id="countdown-label">距离考研还剩</div>
+
+    <!-- 倒计时时钟 -->
+    <div id="countdown"></div>
+
+    <!-- 祝福语句 -->
+    <div id="message">
+        公主 请上岸!
+    </div>
+
+    <!-- 输入框和计算按钮 -->
+    <div id="input-box">
+        <input type="text" id="college-input" placeholder="请输入想考入的院校">
+        <button id="calculate-btn">获取祝福</button>
+    </div>
+
+    <!-- 下雪背景效果 -->
+    <div id="snow-container"></div>
+
+    <script>
+        // 更新倒计时时钟
+        function updateCountdown() {
+            var now = new Date();
+            var targetDate = new Date("2023-12-23T08:30:00");
+            var timeDiff = targetDate.getTime() - now.getTime();
+
+            var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            var countdownLabelElement = document.getElementById("countdown-label");
+            countdownLabelElement.textContent = "距离考研还剩";
+
+            var countdownElement = document.getElementById("countdown");
+            countdownElement.textContent = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + "秒";
+        }
+
+        // 每秒钟更新倒计时时钟
+        setInterval(updateCountdown, 1000);
+
+        // 设置考中几率为100%
+        document.getElementById("calculate-btn").addEventListener("click", function () {
+            var collegeInput = document.getElementById("college-input").value;
+            var resultElement = document.createElement("div");
+            resultElement.textContent = "亲爱的小赵同学：上天会眷顾每一个努力的人，幸运总会与你不期而遇，希望你在考场上不负努力，不留遗憾。无论结果如何，我都为你感到骄傲。因为你已经尽力了，你已经为自己的梦想而奋斗了。无论未来会怎样，你都已经是一个优秀的人，一个值得尊敬的人。因此，您被" + collegeInput + "录取的几率为 100%！";
+            resultElement.style.color = 'pink';
+            document.body.appendChild(resultElement);
+        });
+
+        // 下雪背景效果
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.style.left = Math.random() * window.innerWidth + 'px';
+            snowflake.style.animationDuration = Math.random() * 5 + 4 + 's';
+            snowflake.style.opacity = Math.random();
+            snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+
+            const randomColor = getRandomColor();
+            snowflake.style.backgroundColor = randomColor;
+
+            const slogans = ["请务必坚持信念 守得云开见月明", "不到最后胜利 永远不要掉以轻心", "不到最后时刻 永远不要放弃", "纵横考场过关斩将", "美好的日月星辰在前方等着你去欣赏", "考的都会 蒙的都对", "不负青春 不负韶华", "全力冲刺", "目光坚定毅然追寻自己的梦想", "相信自己 你一定可以的", "乾坤未定你我皆是黑马", "时光终不负你 考研人 顶峰见", "我们终将会上岸 迎着阳光万里", "胜利会属于你的", "坚持到底", "好运连连", "考研加油", "金榜题名", "一战成硕 一研为定", "耀眼的未来", "万事顺遂 顺利上岸", "攀登高峰", "锦程灿烂 得偿所愿", "勇往直前", "努力拼搏", "逢考必过", "前程似锦", "满载而归", "以梦为枪 为梦而战", "以渺小启程 以伟大结束", "但凡辛苦 皆是礼物"]; // Add your slogans here
+            snowflake.innerHTML = slogans[Math.floor(Math.random() * slogans.length)];
+
+            return snowflake;
+        }
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function snowfall() {
+            const snowContainer = document.getElementById('snow-container');
+            const numSnowflakes = 50; // Adjust the number of snowflakes here
+
+            for (let i = 0; i < numSnowflakes; i++) {
+                const snowflake = createSnowflake();
+                snowContainer.appendChild(snowflake);
+            }
+        }
+
+        snowfall();
+    </script>
+</body>
+
+</html>
